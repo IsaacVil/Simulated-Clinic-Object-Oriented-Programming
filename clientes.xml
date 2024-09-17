@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<clientes> 
+	<cliente>
+		<nombre>Isaac</nombre>
+		<codigo>1</codigo>
+		<telefono>11110000</telefono>
+	</cliente>
+	<cliente>
+		<nombre>Kevin</nombre>
+		<codigo>2</codigo>
+		<telefono>11112200</telefono>
+	</cliente>
+	<cliente>
+		<nombre>Luis</nombre>
+		<codigo>3</codigo>
+		<telefono>11110420</telefono>
+	</cliente>
+</clientes>
