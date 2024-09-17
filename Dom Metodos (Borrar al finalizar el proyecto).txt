@@ -1,0 +1,12 @@
+Node : <name>Isaac<name/> nodo serie la etiqueta name
+Text:  <name>Isaac<name/> texto seria Isaac
+Elemento: Los objetos asignados son llamados elementos
+Attr: <name color=10>Isaac<name/> attr(atributo) seria color=10
+Document: Se refiere a todo el documento XML
+
+Document.getDocumentElement(): devuelve el elemento raiz del documento (Osea la etiqueta que almacena TODAS las demas)
+Node.getFirstChild(): devuelve el primer hijo de un nodo determinado
+Node.getLastChild(): devuelve el ultimo hijo de un nodo determinado
+Node.getNextSibling(): devuelve el siguiente hermano de un nodo
+Node.getPreviousSibling(): devuelve el hermano anterior de un nodo
+Node.getAttrib: devuelve el (Attr)atributo del nodo
