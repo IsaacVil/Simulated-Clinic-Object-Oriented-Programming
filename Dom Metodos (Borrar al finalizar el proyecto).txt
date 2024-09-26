@@ -1,6 +1,6 @@
 Node : <names><name>Isaac<name/><names/> nodo serie la etiqueta names
 Text:  <name>Isaac<name/> texto seria Isaac
-Elemento: <names><name>Isaac<name/><names/> en este caso <name> seria un elemento porque esta contenido en una etiqueta
+Elemento: <names><name>Isaac<name/><names/> en este caso <name> seria un elemento porque esta contenido en una etiqueta, todo elemento tiene hijos asociados(los valores dentro del <></>
 Attr: <name color=10>Isaac<name/> attr(atributo) seria color=10
 Document: Se refiere a todo el documento XML
 
