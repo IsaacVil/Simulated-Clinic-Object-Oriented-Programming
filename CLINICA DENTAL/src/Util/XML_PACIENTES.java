@@ -1,5 +1,5 @@
 package Util;
-import Conceptos.Cliente;
+import Conceptos.paciente;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class CargadorXML {
+public class XML_PACIENTES {
 
     private static String getValue(String etiqueta, Element elemento) {
         NodeList nodos = elemento.getElementsByTagName(etiqueta).item(0).getChildNodes();
@@ -19,8 +19,8 @@ public class CargadorXML {
         return nodo.getNodeValue();
     }
 
-    public static ArrayList<Cliente> Cargar(String nombreXML) {
-        ArrayList<Cliente> clientes = new ArrayList<>(); 
+    public static ArrayList<paciente> Cargar(String nombreXML) {
+        ArrayList<paciente> pacientes = new ArrayList<>(); 
 
         try {
             File archivo = new File(nombreXML);
@@ -29,17 +29,18 @@ public class CargadorXML {
             Document docXML = creador.parse(archivo);
             docXML.getDocumentElement().normalize();
 
-            NodeList nodos = docXML.getElementsByTagName("cliente"); 
+            NodeList nodos = docXML.getElementsByTagName("paciente"); 
 
             for (int i = 0; i < nodos.getLength(); i++) {
                 Node nodo = nodos.item(i);
                 if (nodo.getNodeType() == Node.ELEMENT_NODE) {
                     Element elemento = (Element) nodo;
+                    String id = elemento.getAttribute("id");
                     String nombre = getValue("nombre", elemento);
-                    String codigo = getValue("codigo", elemento);
                     String telefono = getValue("telefono", elemento);
-                    Cliente cliente1 = new Cliente(nombre, codigo, telefono);
-                    clientes.add(cliente1);
+                    String email = getValue("email", elemento);
+                    paciente paciente1 = new paciente(id, nombre, telefono, email);
+                    pacientes.add(paciente1);
                 }
             }
         } catch (IOException | SAXException ex) { 
@@ -47,6 +48,6 @@ public class CargadorXML {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return clientes;
+        return pacientes;
     }
 }
