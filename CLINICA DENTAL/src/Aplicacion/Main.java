@@ -16,7 +16,7 @@ public class Main {
         ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
         
-        System.out.println("\n \nPACIENTES \n");
+        System.out.println("PACIENTES \n");
         for (paciente paciente : pacientes) {
             System.out.println("ID: " + paciente.getId());
             System.out.println("Nombre: " + paciente.getNombre());
@@ -42,7 +42,7 @@ public class Main {
             System.out.println("------SERVICIOS QUE TIENE AUTORIZADOS------");
             for (servicio servicios2 : medico1.getServicios()){
              System.out.print("ID: " + servicios2.getId() + ", ");
-            System.out.println("Nombre: " + servicios2.getNombre() + ", ");
+            System.out.print("Nombre: " + servicios2.getNombre() + ", ");
             System.out.println("Teléfono: " + servicios2.getPrecio() + ".");
             System.out.println("-------------------------------------------");
             }
