@@ -4,11 +4,9 @@
  */
 package Presentacion;
 
-import Conceptos.paciente;
-import Util.XML_PACIENTES;
+import Conceptos.servicio;
+import Util.XML_SERVICIOS;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author taqui
  */
-public class VerPacientes extends javax.swing.JFrame {
+public class VerServicios extends javax.swing.JFrame {
 
     /**
-     * Creates new form VerPacientes
+     * Creates new form VerServicios
      */
-    public VerPacientes() {
+    public VerServicios() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         llenartabla();
@@ -33,29 +31,27 @@ public class VerPacientes extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting()) {
-                    actualizarCamposPaciente();
+                    actualizarCamposServicios();
                 }
             }
         });
         setSize(1024, 768); //Resolucion de la pantalla
-        setTitle("PACIENTES");
+        setTitle("SERVICIOS");
         setResizable(false);
     }
     
     private void llenartabla(){
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         Vector<String> columnanombre = new Vector<String>();
         columnanombre.addElement("ID");
         columnanombre.addElement("NOMBRE");
-        columnanombre.addElement("TELEFONO");
-        columnanombre.addElement("EMAIL");
+        columnanombre.addElement("PRECIO");
         Vector<Vector> rowData = new Vector<Vector>();
-        for (paciente p : pacientes){
+        for (servicio p : servicios){
             Vector<String> row = new Vector<String>();
             row.addElement(p.getId());
             row.addElement(p.getNombre());
-            row.addElement(p.getTelefono());
-            row.addElement(p.getEmail());
+            row.addElement(p.getPrecio());
             rowData.addElement(row);
         }
         
@@ -66,12 +62,9 @@ public class VerPacientes extends javax.swing.JFrame {
             }
         };
 
-        
-        
         this.jTable1.setModel(m);
-        
-        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,44 +75,38 @@ public class VerPacientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         AreaID = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         AreaNombre = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        AreaTelefono = new javax.swing.JTextArea();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        AreaMail = new javax.swing.JTextArea();
+        AreaPrecio = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("PACIENTES");
-        setBackground(new java.awt.Color(204, 204, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "NOMBRE", "TELEFONO", "MAIL"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        AreaID.setColumns(10);
+        AreaID.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        AreaID.setRows(1);
+        jScrollPane3.setViewportView(AreaID);
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel1.setText("Lista de Clientes");
+        AreaNombre.setColumns(10);
+        AreaNombre.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        AreaNombre.setRows(1);
+        jScrollPane4.setViewportView(AreaNombre);
+
+        AreaPrecio.setColumns(10);
+        AreaPrecio.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        AreaPrecio.setRows(1);
+        jScrollPane5.setViewportView(AreaPrecio);
 
         jButton1.setText("Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -145,193 +132,167 @@ public class VerPacientes extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 32)); // NOI18N
         jLabel2.setText("ID");
 
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 32)); // NOI18N
+        jLabel5.setText("Precio");
+
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 32)); // NOI18N
         jLabel3.setText("Nombre");
 
-        AreaID.setColumns(10);
-        AreaID.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        AreaID.setRows(1);
-        jScrollPane3.setViewportView(AreaID);
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel1.setText("Lista de Servicios");
 
-        AreaNombre.setColumns(10);
-        AreaNombre.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        AreaNombre.setRows(1);
-        jScrollPane4.setViewportView(AreaNombre);
-
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 32)); // NOI18N
-        jLabel4.setText("Email");
-
-        AreaTelefono.setColumns(10);
-        AreaTelefono.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        AreaTelefono.setRows(1);
-        jScrollPane5.setViewportView(AreaTelefono);
-
-        AreaMail.setColumns(10);
-        AreaMail.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        AreaMail.setRows(1);
-        jScrollPane6.setViewportView(AreaMail);
-
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 32)); // NOI18N
-        jLabel5.setText("Telefono");
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "NOMBRE", "PRECIO"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(83, 83, 83)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel3)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel4)))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane6)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(jLabel3))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel5)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(407, 407, 407)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addGap(27, 27, 27)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane6)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void actualizarCamposPaciente() {
+    private void actualizarCamposServicios() {
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) //Aqui sabemos cual esta elegida entonces podemos cambiar todo SI ES -1 NO SE A ELEGIDO NADA
         {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             String id = (String) model.getValueAt(selectedRow, 0);
             String nombre = (String) model.getValueAt(selectedRow, 1);
-            String telefono = (String) model.getValueAt(selectedRow, 2);
-            String email = (String) model.getValueAt(selectedRow, 3);
+            String precio = (String) model.getValueAt(selectedRow, 2);
 
             AreaID.setText(id);
             AreaNombre.setText(nombre);
-            AreaTelefono.setText(telefono);
-            AreaMail.setText(email);
+            AreaPrecio.setText(precio);
         }
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         if (true) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             boolean encontrado = false;
             String id = AreaID.getText();
             String nombre = AreaNombre.getText();
-            String telefono = AreaTelefono.getText();
-            String email = AreaMail.getText();
+            String precio = AreaPrecio.getText();
 
             try {
                 int idNumero = Integer.parseInt(id);
-                for (paciente p : pacientes) {
+                for (servicio p : servicios) {
                     if (p.getId().equals(id)) {
                         JOptionPane.showMessageDialog(this, "El ID seleccionado ya existe: " + id, "Error", JOptionPane.ERROR_MESSAGE);
                         encontrado = true;
                         break;
                     }
                 }
-                
-                if (!encontrado){
-                    paciente pac = new paciente(id, nombre, telefono, email);
-                    pacientes.add(pac);
 
-                    Object[] newRow = {id, nombre, telefono, email};
-                    model.addRow(newRow); 
-                    JOptionPane.showMessageDialog(this, "Paciente con ID " + id + " agregado correctamente.");
+                if (!encontrado){
+                    servicio pac = new servicio(id, nombre, precio);
+                    servicios.add(pac);
+
+                    Object[] newRow = {id, nombre, precio};
+                    model.addRow(newRow);
+                    JOptionPane.showMessageDialog(this, "Servicio con ID " + id + " agregado correctamente.");
                 }
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "El ID debe ser un numero (No más de 9 digitos)", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            XML_PACIENTES.Guardar("src\\DATA\\pacientes.xml", pacientes);
+            XML_SERVICIOS.Guardar("src\\DATA\\servicios.xml", servicios);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         String id = AreaID.getText();
         String nombre = AreaNombre.getText();
-        String telefono = AreaTelefono.getText();
-        String email = AreaMail.getText();
+        String precio = AreaPrecio.getText();
 
         boolean encontrado = false;
         DefaultTableModel mesa = (DefaultTableModel) jTable1.getModel();
 
-        for (paciente p : pacientes) {
+        for (servicio p : servicios) {
             if (p.getId().equals(id)) {
                 p.setNombre(nombre);
-                p.setTelefono(telefono);
-                p.setEmail(email);
+                p.setPrecio(precio);
                 encontrado = true;
                 int linea = -1;
                 for (int i = 0; i < mesa.getRowCount(); i++) {
-                    if (mesa.getValueAt(i, 0).equals(id)) { 
+                    if (mesa.getValueAt(i, 0).equals(id)) {
                         linea = i;
                         break;
                     }
@@ -339,10 +300,9 @@ public class VerPacientes extends javax.swing.JFrame {
                 if (linea != -1) {
                     mesa.setValueAt(id, linea, 0);
                     mesa.setValueAt(nombre, linea, 1);
-                    mesa.setValueAt(telefono, linea, 2);
-                    mesa.setValueAt(email, linea, 3);
+                    mesa.setValueAt(precio, linea, 2);
                 }
-                JOptionPane.showMessageDialog(this, "Paciente con ID " + id + " modificado correctamente.");
+                JOptionPane.showMessageDialog(this, "Servicio con ID " + id + " modificado correctamente.");
                 break;
             }
         }
@@ -350,12 +310,12 @@ public class VerPacientes extends javax.swing.JFrame {
         if (!encontrado) {
             JOptionPane.showMessageDialog(this, "No se permite modificar el ID de un usuario inexistente", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            XML_PACIENTES.Guardar("src\\DATA\\pacientes.xml", pacientes);
+            XML_SERVICIOS.Guardar("src\\DATA\\servicios.xml", servicios);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         if (true) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             boolean encontrado = false;
@@ -364,14 +324,14 @@ public class VerPacientes extends javax.swing.JFrame {
             try {
                 int idNumero = Integer.parseInt(id);
 
-                for (int i = 0; i < pacientes.size(); i++) {
-                    paciente p = pacientes.get(i);
+                for (int i = 0; i < servicios.size(); i++) {
+                    servicio p = servicios.get(i);
                     if (p.getId().equals(id)) {
-                        pacientes.remove(i);
+                        servicios.remove(i);
                         model.removeRow(i);
                         encontrado = true;
-                        JOptionPane.showMessageDialog(this, "Paciente con ID " + id + " eliminado correctamente.");
-                        break; 
+                        JOptionPane.showMessageDialog(this, "Servicio con ID " + id + " eliminado correctamente.");
+                        break;
                     }
                 }
 
@@ -383,7 +343,7 @@ public class VerPacientes extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "El ID debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            XML_PACIENTES.Guardar("src\\DATA\\pacientes.xml", pacientes);
+            XML_SERVICIOS.Guardar("src\\DATA\\servicios.xml", servicios);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -404,42 +364,39 @@ public class VerPacientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerServicios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerPacientes().setVisible(true);
+                new VerServicios().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AreaID;
-    private javax.swing.JTextArea AreaMail;
     private javax.swing.JTextArea AreaNombre;
-    private javax.swing.JTextArea AreaTelefono;
+    private javax.swing.JTextArea AreaPrecio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

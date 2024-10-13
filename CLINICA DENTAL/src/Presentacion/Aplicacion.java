@@ -4,6 +4,10 @@
  */
 package Presentacion;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,13 +20,12 @@ public class Aplicacion extends javax.swing.JFrame {
      * Creates new form Aplicacion
      */
     public Aplicacion() {
-        
         initComponents();
         setSize(1024, 768); //Resolucion de la pantalla
         setTitle("CLINICA DENTAL");
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH); //Abre en pantalla completa
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,6 +35,7 @@ public class Aplicacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -42,6 +46,15 @@ public class Aplicacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CLINICA DENTAL");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/principal.jpg"))); // NOI18N
+        jLabel1.setToolTipText("");
+        jLabel1.setAlignmentX(0.5F);
+        jLabel1.setMaximumSize(new java.awt.Dimension(1820, 980));
+        jLabel1.setRequestFocusEnabled(false);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1000, 560));
 
         jMenu1.setText("Archivo");
 
@@ -56,6 +69,11 @@ public class Aplicacion extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Util");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setText("Pacientes");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,25 +84,24 @@ public class Aplicacion extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem2.setText("Servicios");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Medicos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -108,6 +125,39 @@ public class Aplicacion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se pudo cerrar el programa\n" + "Contacte con soporte:\n" + ex, "Error con la pantalla", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        try{
+            VerServicios servicios = new VerServicios();
+            servicios.setVisible(true);
+        }
+        catch (UnsupportedOperationException ex){
+            JOptionPane.showMessageDialog(null, "No se pudieron cargar los servicios\n"
+                    + "Contacte con soporte:\n" + ex, "Error con la pantalla", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        try{
+            VerMedicos medicos = new VerMedicos();
+            medicos.setVisible(true);
+        }
+        catch (UnsupportedOperationException ex){
+            JOptionPane.showMessageDialog(null, "No se pudieron cargar los medicos\n"
+                    + "Contacte con soporte:\n" + ex, "Error con la pantalla", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        try{
+            VerMedicos medicos = new VerMedicos();
+            medicos.setVisible(true);
+        }
+        catch (UnsupportedOperationException ex){
+            JOptionPane.showMessageDialog(null, "No se pudieron cargar los medicos\n"
+                    + "Contacte con soporte:\n" + ex, "Error con la pantalla", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,6 +195,7 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

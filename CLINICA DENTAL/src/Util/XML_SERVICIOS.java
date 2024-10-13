@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -57,36 +58,42 @@ public class XML_SERVICIOS {
     }
     
     public static void Guardar(String nombreXML, ArrayList<servicio> servicios) {
-        try {
-            File archivo = new File(nombreXML);
-            DocumentBuilderFactory industria = DocumentBuilderFactory.newInstance();
-            DocumentBuilder creador = industria.newDocumentBuilder();
-            Document docXML = creador.parse(archivo);
-            docXML.getDocumentElement().normalize();
+            try {
+                DocumentBuilderFactory industria = DocumentBuilderFactory.newInstance();
+                DocumentBuilder creador = industria.newDocumentBuilder();
+                Document docXML = creador.newDocument(); 
 
-            NodeList nodos = docXML.getElementsByTagName("servicio");
+                Element raiz = docXML.createElement("servicios");
+                docXML.appendChild(raiz);
 
-            for (int i = 0; i < nodos.getLength(); i++) {
-                Node nodo = nodos.item(i);
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    Element elemento = (Element) nodo;
-                    servicio p = servicios.get(i); 
+                for (servicio p : servicios) {
+                    Element nuevoServicio = docXML.createElement("servicio");
+                    nuevoServicio.setAttribute("id", p.getId());
 
-                    Node nombreNodo = elemento.getElementsByTagName("nombre").item(0).getFirstChild();
-                    nombreNodo.setNodeValue(p.getNombre());
+                    Element nuevoNombre = docXML.createElement("nombre");
+                    nuevoNombre.appendChild(docXML.createTextNode(p.getNombre()));
+                    nuevoServicio.appendChild(nuevoNombre);
 
-                    Node telefonoNodo = elemento.getElementsByTagName("precio").item(0).getFirstChild();
-                    telefonoNodo.setNodeValue(p.getPrecio());
+                    Element nuevoPrecio = docXML.createElement("precio");
+                    nuevoPrecio.appendChild(docXML.createTextNode(p.getPrecio()));
+                    nuevoServicio.appendChild(nuevoPrecio);
+
+                    raiz.appendChild(nuevoServicio);
                 }
-            }
 
-            TransformerFactory industria2 = TransformerFactory.newInstance();
-            Transformer transformador = industria2.newTransformer();
-            DOMSource fuente = new DOMSource(docXML);
-            StreamResult resultado = new StreamResult(new FileOutputStream(nombreXML));
-            transformador.transform(fuente, resultado);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+                TransformerFactory industria2 = TransformerFactory.newInstance();
+                Transformer transformador = industria2.newTransformer();
+
+                transformador.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformador.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "7");
+                transformador.setOutputProperty(OutputKeys.STANDALONE, "no");
+
+                DOMSource fuente = new DOMSource(docXML);
+                StreamResult resultado = new StreamResult(new FileOutputStream(nombreXML));
+                transformador.transform(fuente, resultado);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
     }
 }

@@ -15,7 +15,7 @@ public class Main {
         ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
         ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
-        
+        XML_MEDICOS.Guardar("src\\DATA\\medicos.xml", medicos);
         Aplicacion app = new Aplicacion();
         app.setVisible(true);
     }

@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <pacientes>
        <paciente id="000000000">
-              <nombre>Isaac</nombre>
-              <telefono>12313212</telefono>
-              <email>13212312</email>
-       </paciente>
-       <paciente id="300001111">
-              <nombre>Isaac</nombre>
-              <telefono>12313212</telefono>
+              <nombre>loco</nombre>
+              <telefono>323212312</telefono>
               <email>13212312</email>
        </paciente>
        <paciente id="300003333">
@@ -83,6 +78,16 @@
        <paciente id="300">
               <nombre>usuarioprueba</nombre>
               <telefono>7777-3000</telefono>
-              <email>pedro.a@gmail</email>
+              <email>pedro@gmail</email>
+       </paciente>
+       <paciente id="000000001">
+              <nombre>Isaac</nombre>
+              <telefono>12313212</telefono>
+              <email>13212312</email>
+       </paciente>
+       <paciente id="00020001">
+              <nombre>loco</nombre>
+              <telefono>3232</telefono>
+              <email>13212312</email>
        </paciente>
 </pacientes>

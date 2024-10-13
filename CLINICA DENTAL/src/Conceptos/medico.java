@@ -16,6 +16,9 @@ public class medico {
         this.telefono = telefono;
         this.servicios = servicios;
     }
+    
+    public medico() {
+    }
 
     public String getId() {
         return id;

@@ -1,14 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><servicios>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servicios>
        <servicio id="100">
-              <nombre>Blanqueamiento dental</nombre>
-              <precio>696969</precio>
+              <nombre>Cirugia estetica</nombre>
+              <precio>10000</precio>
        </servicio>
        <servicio id="101">
               <nombre>Limpieza de encias</nombre>
-              <precio>696969</precio>
+              <precio>10000</precio>
        </servicio>
        <servicio id="102">
               <nombre>Cirugia maxilofacial</nombre>
               <precio>696969</precio>
+       </servicio>
+       <servicio id="103">
+              <nombre>Cirugia General</nombre>
+              <precio>10000</precio>
+       </servicio>
+       <servicio id="1022">
+              <nombre>Cirugia maxilofacial</nombre>
+              <precio>696962</precio>
+       </servicio>
+       <servicio id="130921">
+              <nombre>Locura</nombre>
+              <precio>31231</precio>
        </servicio>
 </servicios>
