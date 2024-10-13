@@ -1,22 +1,87 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <pacientes>
        <paciente id="000000000">
-              <nombre>Sin Registro</nombre>
-              <telefono>NA</telefono>
-              <email>NA</email>
+              <nombre>Isaac</nombre>
+              <telefono>12313212</telefono>
+              <email>13212312</email>
        </paciente>
        <paciente id="300001111">
-              <nombre>Juan Perez</nombre>
-              <telefono>7777-1000</telefono>
-              <email>juan.p@gmail</email>
-       </paciente>
-       <paciente id="300002222">
-              <nombre>Ana Rojas</nombre>
-              <telefono>7777-2000</telefono>
-              <email>ana.r@gmail</email>
+              <nombre>Isaac</nombre>
+              <telefono>12313212</telefono>
+              <email>13212312</email>
        </paciente>
        <paciente id="300003333">
-              <nombre>Pedro Arnaez</nombre>
+              <nombre>usuariopru2</nombre>
+              <telefono>7777-2022</telefono>
+              <email>1231231@gmail</email>
+       </paciente>
+       <paciente id="300003334">
+              <nombre>usuarioprueba22</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003337">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003312">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003313">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003314">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003315">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003316">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003317">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003318">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003319">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300003320">
+              <nombre>usuarioprueba</nombre>
+              <telefono>7777-3000</telefono>
+              <email>pedro.a@gmail</email>
+       </paciente>
+       <paciente id="300002221">
+              <nombre>usuariopru2123</nombre>
+              <telefono>7777-2022</telefono>
+              <email>1231231@gmail</email>
+       </paciente>
+       <paciente id="300003340">
+              <nombre>lucas</nombre>
+              <telefono>77773000</telefono>
+              <email>312@gmail</email>
+       </paciente>
+       <paciente id="300">
+              <nombre>usuarioprueba</nombre>
               <telefono>7777-3000</telefono>
               <email>pedro.a@gmail</email>
        </paciente>

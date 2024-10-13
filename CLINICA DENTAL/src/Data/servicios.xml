@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<servicios>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><servicios>
        <servicio id="100">
               <nombre>Blanqueamiento dental</nombre>
-              <precio>35000</precio>
+              <precio>696969</precio>
        </servicio>
        <servicio id="101">
               <nombre>Limpieza de encias</nombre>
-              <precio>20000</precio>
+              <precio>696969</precio>
        </servicio>
        <servicio id="102">
               <nombre>Cirugia maxilofacial</nombre>
-              <precio>1000000</precio>
+              <precio>696969</precio>
        </servicio>
 </servicios>

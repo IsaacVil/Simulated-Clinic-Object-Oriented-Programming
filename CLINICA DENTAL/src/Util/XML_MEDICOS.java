@@ -14,7 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XML_MEDICOS {
-
+    
     private static String getValue(String etiqueta, Element elemento) {
         NodeList nodos = elemento.getElementsByTagName(etiqueta).item(0).getChildNodes();
         Node nodo = (Node) nodos.item(0);
@@ -71,7 +71,6 @@ public class XML_MEDICOS {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return medicosLista;
     }
 }
