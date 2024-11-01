@@ -8,6 +8,7 @@ import Util.XML_PACIENTES;
 import Util.XML_SERVICIOS;
 import java.util.ArrayList;
 /**
+ * Proyecto 1
  * @author Isaac Villalobos Bonilla y Kevin Vega. 2024124285 y 2024800616.
  */
 public class Main {

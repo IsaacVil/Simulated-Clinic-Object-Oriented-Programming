@@ -4,10 +4,10 @@
  */
 package Presentacion;
 
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,9 +21,23 @@ public class Aplicacion extends javax.swing.JFrame {
      */
     public Aplicacion() {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
+        
+        ImageIcon imagen = new ImageIcon("src/Imagenes/principal.jpg");
+        Icon icono= new ImageIcon(imagen.getImage().getScaledInstance(lblFondo.getWidth(), lblFondo.getHeight(), Image.SCALE_DEFAULT));
         setSize(1024, 768); //Resolucion de la pantalla
         setTitle("CLINICA DENTAL");
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH); //Abre en pantalla completa
+        lblFondo.setIcon(icono);
+        
+        // Usar GridBagLayout para centrar automáticamente
+        this.setLayout(new GridBagLayout()); // Cambia el layout del contenedor principal
+        lblFondo.setIcon(icono);
+
+        // Añadir el JLabel al contenedor
+        this.add(lblFondo);
+        this.repaint();
     }
     
     /**
@@ -35,7 +49,7 @@ public class Aplicacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblFondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -48,13 +62,8 @@ public class Aplicacion extends javax.swing.JFrame {
         setTitle("CLINICA DENTAL");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/principal.jpg"))); // NOI18N
-        jLabel1.setToolTipText("");
-        jLabel1.setAlignmentX(0.5F);
-        jLabel1.setMaximumSize(new java.awt.Dimension(1820, 980));
-        jLabel1.setRequestFocusEnabled(false);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1000, 560));
+        lblFondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 540, 310));
 
         jMenu1.setText("Archivo");
 
@@ -195,7 +204,6 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -203,5 +211,6 @@ public class Aplicacion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JLabel lblFondo;
     // End of variables declaration//GEN-END:variables
 }

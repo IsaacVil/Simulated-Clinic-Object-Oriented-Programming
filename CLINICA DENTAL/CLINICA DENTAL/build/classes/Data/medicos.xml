@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<medicos>
+       <medico id="200">
+              <nombre>Rodrigo Villa</nombre>
+              <puesto>Odontologia</puesto>
+              <telefono>7777-9999</telefono>
+              <servicios>
+                     <id>101</id>
+                     <id>102</id>
+                     <id>103</id>
+              </servicios>
+       </medico>
+       <medico id="201">
+              <nombre>Maria Roja</nombre>
+              <puesto>Medico maxilofacial</puesto>
+              <telefono>8888-9999</telefono>
+              <servicios>
+                     <id>1022</id>
+              </servicios>
+       </medico>
+       <medico id="123">
+              <nombre>Isaac</nombre>
+              <puesto>No tiene</puesto>
+              <telefono>No tiene</telefono>
+              <servicios>
+                     <id/>
+              </servicios>
+       </medico>
+</medicos>

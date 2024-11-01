@@ -1,0 +1,9 @@
+Elegimos utilizar DOM en lugar de JAX en este proyecto principalmente por la facilidad con la que DOM permite trabajar con archivos XML de manera más intuitiva y directa.
+ Aunque JAX tiene sus ventajas, como una mayor flexibilidad y un mejor manejo de memoria en algunos casos, DOM se adapta mejor a las necesidades de este proyecto.
+Con DOM, pudimos cargar el archivo XML completo en memoria y tener acceso inmediato a todos los nodos. 
+Esto facilita recorrer, modificar y agregar elementos en la estructura del archivo, algo que es clave en este proyecto para las operaciones con pacientes, médicos y servicios.
+ En cambio, JAX, al estar más centrado en el procesamiento de flujos de datos y en el uso de anotaciones para vincular objetos Java a estructuras XML,
+ puede ser más complejo para modificaciones directas de la estructura del archivo XML.
+
+En conclusión, elegimos DOM sobre JAX porque su simplicidad y capacidad para manipular el XML de manera directa se ajustan mejor a los requerimientos del proyecto,
+ especialmente cuando se necesita modificar y cargar datos de forma rápida y sencilla, sin la sobrecarga de configuración que JAX podría implicar.

@@ -15,11 +15,6 @@
               <telefono>7777-3000</telefono>
               <email>pedro.a@gmail</email>
        </paciente>
-       <paciente id="300003337">
-              <nombre>usuarioprueba</nombre>
-              <telefono>7777-3000</telefono>
-              <email>pedro.a@gmail</email>
-       </paciente>
        <paciente id="300003312">
               <nombre>usuarioprueba</nombre>
               <telefono>7777-3000</telefono>
@@ -42,7 +37,7 @@
        </paciente>
        <paciente id="300003316">
               <nombre>usuarioprueba</nombre>
-              <telefono>7777-3000</telefono>
+              <telefono>7777-3009</telefono>
               <email>pedro.a@gmail</email>
        </paciente>
        <paciente id="300003317">
