@@ -12,6 +12,9 @@ public class paciente {
         this.email = email;
     }
 
+    public paciente() {
+    }
+    
     public String getId() {
         return id;
     }

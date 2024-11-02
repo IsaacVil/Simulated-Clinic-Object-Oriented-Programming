@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<solicitudes>
+       <solicitud id="100000230">
+              <fecha_hora>04-07-06</fecha_hora>
+              <servicio>Tratamiento Locura</servicio>
+              <Paciente>300003333</Paciente>
+              <Medico>Rodrigo Villa</Medico>
+              <estado>Nuevo</estado>
+              <observaciones>Enfermo mental</observaciones>
+              <otros_servicios>
+                     <id>102</id>
+              </otros_servicios>
+       </solicitud>
+</solicitudes>

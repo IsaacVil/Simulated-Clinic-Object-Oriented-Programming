@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<solicitudes>
+       <solicitud id="100000230">
+              <fecha_hora>04-07-06</fecha_hora>
+              <servicio>Tratamiento Locura</servicio>
+              <Paciente>300003333</Paciente>
+              <Medico>Rodrigo Villa</Medico>
+              <estado>Nuevo</estado>
+              <observaciones>Enfermo mental</observaciones>
+              <otros_servicios>
+                     <id>102</id>
+              </otros_servicios>
+       </solicitud>
+       <solicitud id="100000231">
+              <fecha_hora>04-07-06</fecha_hora>
+              <servicio>Tratamiento Locura</servicio>
+              <Paciente>300003333</Paciente>
+              <Medico>Rodrigo Villa</Medico>
+              <estado>Nuevo</estado>
+              <observaciones>Enfermo mental</observaciones>
+              <otros_servicios>
+                     <id>102</id>
+              </otros_servicios>
+       </solicitud>
+       <solicitud id="100000232">
+              <fecha_hora>04-07-06</fecha_hora>
+              <servicio>Tratamiento Locura</servicio>
+              <Paciente>300003333</Paciente>
+              <Medico>Rodrigo Villa</Medico>
+              <estado>Nuevo</estado>
+              <observaciones>Enfermo mental</observaciones>
+              <otros_servicios>
+                     <id>102</id>
+              </otros_servicios>
+       </solicitud>
+       <solicitud id="100000233">
+              <fecha_hora>14/11/2024</fecha_hora>
+              <servicio>Cirugia General</servicio>
+              <Paciente>000000000</Paciente>
+              <Medico>Isaac</Medico>
+              <estado>Nuevo</estado>
+              <observaciones/>
+              <otros_servicios>
+                     <id/>
+              </otros_servicios>
+       </solicitud>
+       <solicitud id="100000234">
+              <fecha_hora>22/11/2024</fecha_hora>
+              <servicio>Cirugia maxilofacial</servicio>
+              <Paciente>300003312</Paciente>
+              <Medico>Maria Roja</Medico>
+              <estado>Nuevo</estado>
+              <observaciones/>
+              <otros_servicios>
+                     <id/>
+              </otros_servicios>
+       </solicitud>
+</solicitudes>

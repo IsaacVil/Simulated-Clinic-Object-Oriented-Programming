@@ -52,6 +52,7 @@ public class Aplicacion extends javax.swing.JFrame {
         lblFondo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -66,6 +67,14 @@ public class Aplicacion extends javax.swing.JFrame {
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 540, 310));
 
         jMenu1.setText("Archivo");
+
+        jMenuItem5.setText("Crear Solicitud");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
 
         jMenuItem4.setText("Salir");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +177,17 @@ public class Aplicacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        try{
+            CrearSolicitud medicos = new CrearSolicitud();
+            medicos.setVisible(true);
+        }
+        catch (UnsupportedOperationException ex){
+            JOptionPane.showMessageDialog(null, "No se pudo cargar\n"
+                    + "Contacte con soporte:\n" + ex, "Error con la pantalla", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -211,6 +231,7 @@ public class Aplicacion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JLabel lblFondo;
     // End of variables declaration//GEN-END:variables
 }

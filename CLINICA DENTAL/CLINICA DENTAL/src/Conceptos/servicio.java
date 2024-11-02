@@ -10,6 +10,8 @@ public class servicio {
         this.precio = precio;
     }
     
+    public servicio() {
+    }
     
     public String getId() {
         return id;

@@ -85,4 +85,9 @@
               <telefono>3232</telefono>
               <email>13212312</email>
        </paciente>
+       <paciente id="132">
+              <nombre>,</nombre>
+              <telefono>3123</telefono>
+              <email>132</email>
+       </paciente>
 </pacientes>
