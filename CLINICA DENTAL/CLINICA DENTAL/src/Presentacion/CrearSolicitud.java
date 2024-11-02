@@ -36,7 +36,6 @@ public class CrearSolicitud extends javax.swing.JFrame {
         for (medico s : medicos){
             CajadeMedicos.addItem(s.getNombre());
         }
-        
     }
 
     /**
@@ -208,6 +207,8 @@ public class CrearSolicitud extends javax.swing.JFrame {
     }//GEN-LAST:event_CajadeServiciosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean serviciosirve = false;
+        boolean relleno = false;
         ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
         ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
         ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
@@ -218,10 +219,12 @@ public class CrearSolicitud extends javax.swing.JFrame {
         String ServicioNombre = (String) CajadeServicios.getSelectedItem();
         String obs = Observacionestext.getText();
         Date selectedDate = SelectorFecha.getDate();
+        if (!(PacienteNombre.equals("No elegido")) && (!(DoctorNombre.equals("No elegido"))) && (!(ServicioNombre.equals("No elegido")))){
+            relleno = true;
+        }
         paciente pacienteselec = null;
         medico medicoselec = null; 
         servicio servicioselec = null; 
-        boolean serviciosirve = false;
         for (paciente p : pacientes){
             if (p.getNombre().equals(PacienteNombre)){
                 pacienteselec = p;
@@ -259,9 +262,9 @@ public class CrearSolicitud extends javax.swing.JFrame {
         
         String numid = String.valueOf(mayor + 1);
         
-        if (PacienteNombre != null && DoctorNombre != null && ServicioNombre != null && selectedDate != null) {
+        if (PacienteNombre != null && DoctorNombre != null && ServicioNombre != null && selectedDate != null && relleno) {
             if (serviciosirve){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 String horaformato = dateFormat.format(selectedDate);
                 if (pacienteselec != null && medicoselec != null && servicioselec != null){
                     ArrayList<servicio> serviciosnulos = new ArrayList<>(); 

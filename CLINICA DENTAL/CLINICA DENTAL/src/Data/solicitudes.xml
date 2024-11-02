@@ -8,7 +8,11 @@
               <estado>Nuevo</estado>
               <observaciones>Enfermo mental</observaciones>
               <otros_servicios>
+                     <id>100</id>
                      <id>102</id>
+                     <id>103</id>
+                     <id>1022</id>
+                     <id>130921</id>
               </otros_servicios>
        </solicitud>
        <solicitud id="100000231">
@@ -20,6 +24,7 @@
               <observaciones>Enfermo mental</observaciones>
               <otros_servicios>
                      <id>102</id>
+                     <id>1022</id>
               </otros_servicios>
        </solicitud>
        <solicitud id="100000232">
@@ -27,14 +32,15 @@
               <servicio>Tratamiento Locura</servicio>
               <Paciente>300003333</Paciente>
               <Medico>Rodrigo Villa</Medico>
-              <estado>Nuevo</estado>
-              <observaciones>Enfermo mental</observaciones>
+              <estado>Cancelado</estado>
+              <observaciones>Enfermo mental nuevo</observaciones>
               <otros_servicios>
                      <id>102</id>
+                     <id>1022</id>
               </otros_servicios>
        </solicitud>
        <solicitud id="100000233">
-              <fecha_hora>14/11/2024</fecha_hora>
+              <fecha_hora>14-11-2024</fecha_hora>
               <servicio>Cirugia General</servicio>
               <Paciente>000000000</Paciente>
               <Medico>Isaac</Medico>
@@ -45,11 +51,33 @@
               </otros_servicios>
        </solicitud>
        <solicitud id="100000234">
-              <fecha_hora>22/11/2024</fecha_hora>
+              <fecha_hora>22-11-2024</fecha_hora>
               <servicio>Cirugia maxilofacial</servicio>
               <Paciente>300003312</Paciente>
               <Medico>Maria Roja</Medico>
               <estado>Nuevo</estado>
+              <observaciones/>
+              <otros_servicios>
+                     <id/>
+              </otros_servicios>
+       </solicitud>
+       <solicitud id="100000235">
+              <fecha_hora>08-11-2024</fecha_hora>
+              <servicio>Cirugia maxilofacial</servicio>
+              <Paciente>300003312</Paciente>
+              <Medico>Rodrigo Villa</Medico>
+              <estado>Nuevo</estado>
+              <observaciones/>
+              <otros_servicios>
+                     <id/>
+              </otros_servicios>
+       </solicitud>
+       <solicitud id="100000236">
+              <fecha_hora>22/11/2024</fecha_hora>
+              <servicio>Tratamiento Locura</servicio>
+              <Paciente>300003333</Paciente>
+              <Medico>Rodrigo Villa</Medico>
+              <estado>Completado</estado>
               <observaciones/>
               <otros_servicios>
                      <id/>
