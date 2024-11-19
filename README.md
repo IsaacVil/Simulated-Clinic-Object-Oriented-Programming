@@ -22,16 +22,16 @@ Any doubts or questions of the inner workings of the project can be made to my p
   
 ## Installation and Usage  
 1) Clone this repository: git clone https://github.com/IsaacVil/Simulated-Clinic.git  
-2) Open the project in NetBeans.  
+2) Open the project in **NetBeans**.  
 3) Build and run the project to launch the clinic simulation system.  
-4) XML files will be automatically generated and updated during runtime to store all clinic data.  
+4) **XML files** will be automatically generated and updated during runtime to store all clinic data.  
   
 ## Learning Outcomes
 Through this project, we:  
-- Strengthened our understanding of object-oriented programming principles.  
-- Developed an interactive GUI using Swing.  
-- Gained experience in XML-based data persistence.  
-- Improved collaborative development practices with Git.  
+- Strengthened our understanding of **object-oriented programming principles**.  
+- Developed an interactive **GUI** using **Swing**.  
+- Gained experience in **XML-based data persistence**.  
+- Improved collaborative development practices with **Git**.  
   
 ## Acknowledgments  
-- We would like to thank our professor and classmates at TEC for their guidance and support throughout the development of this project.  
+- We would like to thank our **professor and classmates** at **TEC** for their guidance and support throughout the development of this project.  
