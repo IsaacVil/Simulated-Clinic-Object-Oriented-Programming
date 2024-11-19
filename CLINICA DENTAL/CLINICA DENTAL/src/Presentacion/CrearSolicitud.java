@@ -22,6 +22,8 @@ public class CrearSolicitud extends javax.swing.JFrame {
      */
     public CrearSolicitud() {
         initComponents();
+        // Configurar el formato de fecha para SelectorFecha
+        SelectorFecha.setDateFormatString("yyyy-MM-dd");
         setTitle("Crea Solicitud");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
@@ -207,82 +209,93 @@ public class CrearSolicitud extends javax.swing.JFrame {
     }//GEN-LAST:event_CajadeServiciosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean serviciosirve = false;
-        boolean relleno = false;
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
-        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
-        ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
-        ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
-        ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
-        String PacienteNombre = (String) CajadePacientes.getSelectedItem();
-        String DoctorNombre = (String) CajadeMedicos.getSelectedItem();
-        String ServicioNombre = (String) CajadeServicios.getSelectedItem();
-        String obs = Observacionestext.getText();
-        Date selectedDate = SelectorFecha.getDate();
-        if (!(PacienteNombre.equals("No elegido")) && (!(DoctorNombre.equals("No elegido"))) && (!(ServicioNombre.equals("No elegido")))){
-            relleno = true;
+    boolean serviciosirve = false;
+    boolean relleno = false;
+
+    ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+    ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
+    ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
+    ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
+    ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
+
+    String PacienteNombre = (String) CajadePacientes.getSelectedItem();
+    String DoctorNombre = (String) CajadeMedicos.getSelectedItem();
+    String ServicioNombre = (String) CajadeServicios.getSelectedItem();
+    String obs = Observacionestext.getText();
+    Date selectedDate = SelectorFecha.getDate();
+
+    if (!(PacienteNombre.equals("No elegido")) && (!(DoctorNombre.equals("No elegido"))) && (!(ServicioNombre.equals("No elegido")))) {
+        relleno = true;
+    }
+
+    paciente pacienteselec = null;
+    medico medicoselec = null;
+    servicio servicioselec = null;
+
+    for (paciente p : pacientes) {
+        if (p.getNombre().equals(PacienteNombre)) {
+            pacienteselec = p;
+            break;
         }
-        paciente pacienteselec = null;
-        medico medicoselec = null; 
-        servicio servicioselec = null; 
-        for (paciente p : pacientes){
-            if (p.getNombre().equals(PacienteNombre)){
-                pacienteselec = p;
-                break;
-            }
-        }
-        for (medico m : medicos) {
-            if (m.getNombre().equals(DoctorNombre)) {
-                medicoselec = m; 
-                for (servicio s : m.getServicios())
-                {
-                    if (s.getNombre().equals(ServicioNombre))
-                    {
+    }
+
+    for (medico m : medicos) {
+        if (m.getNombre().equals(DoctorNombre)) {
+            medicoselec = m;
+            for (servicio s : m.getServicios()) {
+                if (s.getNombre().equals(ServicioNombre)) {
                     servicioselec = s;
                     serviciosirve = true;
                     break;
-                    }
                 }
-                break;
             }
+            break;
         }
-        
-        int mayor = 0;
-        for (solicitud soli : solicitudes) {
-            try {
-                int id = Integer.parseInt(soli.consultarId());
-                if (id > mayor) {
-                    mayor = id;
-                }
-            } catch (NumberFormatException e) {
-                // Si no se puede parsear, simplemente se omite esta solicitud
-                continue;
+    }
+
+    // Generar un nuevo ID basado en el mayor ID existente
+    int mayor = 0;
+    for (solicitud soli : solicitudes) {
+        try {
+            int id = Integer.parseInt(soli.consultarId());
+            if (id > mayor) {
+                mayor = id;
             }
+        } catch (NumberFormatException e) {
+            continue; // Si no se puede parsear, omitir esta solicitud
         }
-        
-        String numid = String.valueOf(mayor + 1);
-        
-        if (PacienteNombre != null && DoctorNombre != null && ServicioNombre != null && selectedDate != null && relleno) {
-            if (serviciosirve){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                String horaformato = dateFormat.format(selectedDate);
-                if (pacienteselec != null && medicoselec != null && servicioselec != null){
-                    ArrayList<servicio> serviciosnulos = new ArrayList<>(); 
-                    solicitud sol = new solicitud(numid, horaformato, servicioselec, pacienteselec, medicoselec, "Nuevo", obs, serviciosnulos);
-                    solicitudes.add(sol);
-                    XML_SOLICITUDES.Guardar("src\\DATA\\solicitudes.xml", solicitudes);
-                    JOptionPane.showMessageDialog(null, "La cita se asigno correctamente, Numero de la cita: " + numid, "Exito", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Error Inesperado, puede deberse a corrupcion en los XML", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "El doctor no tiene el cargo para ese servicio", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    String numid = String.valueOf(mayor + 1);
+
+    if (PacienteNombre != null && DoctorNombre != null && ServicioNombre != null && selectedDate != null && relleno) {
+        if (serviciosirve) {
+            // Modificar formato de fecha al requerido
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaFormateada = dateFormat.format(selectedDate) + " 10:00"; // Agregar hora fija
+
+            if (pacienteselec != null && medicoselec != null && servicioselec != null) {
+                ArrayList<servicio> serviciosnulos = new ArrayList<>();
+                solicitud nuevaSolicitud = new solicitud(numid, fechaFormateada, servicioselec, pacienteselec, medicoselec, "Nuevo", obs, serviciosnulos);
+
+                // Añadir la nueva solicitud a la lista existente
+                solicitudes.add(nuevaSolicitud);
+
+                // Guardar todas las solicitudes, preservando los estados existentes
+                XML_SOLICITUDES.Guardar("src\\DATA\\solicitudes.xml", solicitudes);
+
+                JOptionPane.showMessageDialog(null, "La cita se asignó correctamente, Número de la cita: " + numid, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose(); // Cerrar la ventana después de guardar la solicitud
+            } else {
+                JOptionPane.showMessageDialog(null, "Error Inesperado, puede deberse a corrupción en los XML", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debe completarlos los campos restantes", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El doctor no tiene el cargo para ese servicio", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Debe completar los campos restantes", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

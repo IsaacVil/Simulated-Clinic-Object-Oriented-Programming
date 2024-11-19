@@ -1,29 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <medicos>
-       <medico id="200">
-              <nombre>Rodrigo Villa</nombre>
-              <puesto>Odontologia</puesto>
-              <telefono>7777-9999</telefono>
+       <medico id="00001">
+              <nombre>medico00001</nombre>
+              <puesto>titulo00001</puesto>
+              <telefono>777700001</telefono>
               <servicios>
-                     <id>101</id>
-                     <id>102</id>
-                     <id>103</id>
+                     <id>00001</id>
+                     <id>00004</id>
               </servicios>
        </medico>
-       <medico id="201">
-              <nombre>Maria Roja</nombre>
-              <puesto>Medico maxilofacial</puesto>
-              <telefono>8888-9999</telefono>
+       <medico id="00002">
+              <nombre>medico00002</nombre>
+              <puesto>titulo00002</puesto>
+              <telefono>777700002</telefono>
               <servicios>
-                     <id>1022</id>
+                     <id>00001</id>
+                     <id>00006</id>
               </servicios>
        </medico>
-       <medico id="123">
-              <nombre>Isaac</nombre>
-              <puesto>No tiene</puesto>
-              <telefono>No tiene</telefono>
+       <medico id="00003">
+              <nombre>medico00003</nombre>
+              <puesto>titulo00003</puesto>
+              <telefono>777700003</telefono>
               <servicios>
-                     <id>103</id>
+                     <id>00001</id>
+                     <id>00006</id>
+              </servicios>
+       </medico>
+       <medico id="00004">
+              <nombre>medico00004</nombre>
+              <puesto>titulo00004</puesto>
+              <telefono>777700004</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00003</id>
+              </servicios>
+       </medico>
+       <medico id="00005">
+              <nombre>medico00005</nombre>
+              <puesto>titulo00005</puesto>
+              <telefono>777700005</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00007</id>
+              </servicios>
+       </medico>
+       <medico id="00006">
+              <nombre>medico00006</nombre>
+              <puesto>titulo00006</puesto>
+              <telefono>777700006</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00009</id>
+              </servicios>
+       </medico>
+       <medico id="00007">
+              <nombre>medico00007</nombre>
+              <puesto>titulo00007</puesto>
+              <telefono>777700007</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00009</id>
+              </servicios>
+       </medico>
+       <medico id="00008">
+              <nombre>medico00008</nombre>
+              <puesto>titulo00008</puesto>
+              <telefono>777700008</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00010</id>
+              </servicios>
+       </medico>
+       <medico id="00009">
+              <nombre>medico00009</nombre>
+              <puesto>titulo00009</puesto>
+              <telefono>777700009</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00009</id>
+              </servicios>
+       </medico>
+       <medico id="00010">
+              <nombre>medico00010</nombre>
+              <puesto>titulo00010</puesto>
+              <telefono>777700010</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00004</id>
+              </servicios>
+       </medico>
+       <medico id="99999">
+              <nombre>Doctor1</nombre>
+              <puesto>98787364</puesto>
+              <telefono>Médico General</telefono>
+              <servicios>
+                     <id>00001</id>
+                     <id>00002</id>
+                     <id>00003</id>
+                     <id>00004</id>
+                     <id>00005</id>
+                     <id>00006</id>
+                     <id>00007</id>
+                     <id>00008</id>
+                     <id>00009</id>
+                     <id>00010</id>
+                     <id>3454</id>
               </servicios>
        </medico>
 </medicos>

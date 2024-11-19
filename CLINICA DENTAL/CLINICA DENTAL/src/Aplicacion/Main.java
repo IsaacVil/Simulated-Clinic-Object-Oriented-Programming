@@ -12,7 +12,7 @@ import Util.XML_SERVICIOS;
 import Util.XML_SOLICITUDES;
 import java.util.ArrayList;
 /**
- * Proyecto 1
+ * Proyecto 2
  * Isaac Villalobos Bonilla y Kevin Vega. 2024124285 y 2024800616.
  */
 public class Main {

@@ -1,27 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <servicios>
-       <servicio id="100">
-              <nombre>Cirugia estetica</nombre>
-              <precio>10000</precio>
+       <servicio id="00001">
+              <nombre>servicio00001</nombre>
+              <precio>10001</precio>
        </servicio>
-       <servicio id="101">
-              <nombre>Tratamiento Locura</nombre>
-              <precio>10000</precio>
+       <servicio id="00002">
+              <nombre>servicio00002</nombre>
+              <precio>10002</precio>
        </servicio>
-       <servicio id="102">
-              <nombre>Cirugia maxilofacial</nombre>
-              <precio>696969</precio>
+       <servicio id="00003">
+              <nombre>servicio00003</nombre>
+              <precio>10003</precio>
        </servicio>
-       <servicio id="103">
-              <nombre>Cirugia General</nombre>
-              <precio>10000</precio>
+       <servicio id="00004">
+              <nombre>servicio00004</nombre>
+              <precio>10004</precio>
        </servicio>
-       <servicio id="1022">
-              <nombre>Cirugia maxilofacial</nombre>
-              <precio>696962</precio>
+       <servicio id="00005">
+              <nombre>servicio00005</nombre>
+              <precio>10005</precio>
        </servicio>
-       <servicio id="130921">
-              <nombre>Locura</nombre>
-              <precio>31231</precio>
+       <servicio id="00006">
+              <nombre>servicio00006</nombre>
+              <precio>10006</precio>
+       </servicio>
+       <servicio id="00007">
+              <nombre>servicio00007</nombre>
+              <precio>10007</precio>
+       </servicio>
+       <servicio id="00008">
+              <nombre>servicio00008</nombre>
+              <precio>10008</precio>
+       </servicio>
+       <servicio id="00009">
+              <nombre>servicio00009</nombre>
+              <precio>10009</precio>
+       </servicio>
+       <servicio id="00010">
+              <nombre>servicio00010</nombre>
+              <precio>10010</precio>
+       </servicio>
+       <servicio id="3454">
+              <nombre>servicio00011</nombre>
+              <precio>30000</precio>
        </servicio>
 </servicios>

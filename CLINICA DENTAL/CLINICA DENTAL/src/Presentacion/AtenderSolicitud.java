@@ -357,38 +357,54 @@ public class AtenderSolicitud extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
-        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
-        ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
-        ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
-        ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
-        String id = (String) CAJASERVICIOSACTIVOS.getSelectedItem();
-        String estado = (String) CAJAESTADO.getSelectedItem();
-        String medico = (String) CAJAMEDICO.getSelectedItem();
-        String obs = Observacionestext.getText();
-        if (id != "No Elegido" && estado != "No Elegido" && medico != "No Elegido"){
-            for (solicitud s : solicitudes){
-                if (id.equals(s.consultarId())){
-                    s.atenderEstado(estado);
-                    s.atenderObservaciones(obs);
-                    for (medico m : medicos){
-                        if (m.getNombre().equals(medico)){
-                            s.atenderMedico(m);
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            
+    ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+    ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
+    ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
+    ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
+    ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
 
-            XML_SOLICITUDES.Guardar("src\\DATA\\solicitudes.xml", solicitudes);
-            JOptionPane.showMessageDialog(this, "Se guardaron los cambios correctamente.");
-            this.dispose();
+    String id = (String) CAJASERVICIOSACTIVOS.getSelectedItem();
+    String estadoNombre = (String) CAJAESTADO.getSelectedItem();
+    String medicoNombre = (String) CAJAMEDICO.getSelectedItem();
+    String observaciones = Observacionestext.getText();
+
+    if (!id.equals("No elegido") && !estadoNombre.equals("No elegido") && !medicoNombre.equals("No elegido")) {
+        // Obtener el ID del estado seleccionado
+        String estadoId = estados.stream()
+                .filter(e -> e.getNombre().equals(estadoNombre))
+                .map(estado::getId)
+                .findFirst()
+                .orElse(null);
+
+        if (estadoId == null) {
+            JOptionPane.showMessageDialog(null, "El estado seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Debe completarlos los campos restantes", "Error", JOptionPane.ERROR_MESSAGE);
+
+        for (solicitud s : solicitudes) {
+            if (id.equals(s.consultarId())) {
+                // Actualizar el estado de la solicitud con el ID del estado
+                s.atenderEstado(estadoId);
+                s.atenderObservaciones(observaciones);
+
+                // Actualizar el médico de la solicitud
+                for (medico m : medicos) {
+                    if (m.getNombre().equals(medicoNombre)) {
+                        s.atenderMedico(m);
+                        break;
+                    }
+                }
+                break;
+            }
         }
+
+        // Guardar las solicitudes actualizadas en el archivo XML
+        XML_SOLICITUDES.Guardar("src\\DATA\\solicitudes.xml", solicitudes);
+        JOptionPane.showMessageDialog(this, "Se guardaron los cambios correctamente.");
+        this.dispose(); // Cerrar la ventana después de guardar los cambios
+    } else {
+        JOptionPane.showMessageDialog(null, "Debe completar todos los campos restantes", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

@@ -1,12 +1,16 @@
 package Util;
+
 import Conceptos.estado;
 import Conceptos.medico;
 import Conceptos.paciente;
 import Conceptos.servicio;
 import Conceptos.solicitud;
+
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -14,6 +18,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,207 +26,167 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XML_SOLICITUDES {
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     private static String getValue(String etiqueta, Element elemento) {
         NodeList nodos = elemento.getElementsByTagName(etiqueta);
         if (nodos.getLength() > 0 && nodos.item(0).getChildNodes().getLength() > 0) {
             Node nodo = nodos.item(0).getChildNodes().item(0);
             if (nodo != null) {
-                return nodo.getNodeValue();
+                return nodo.getNodeValue().trim(); // Trim para evitar espacios en blanco
             }
         }
-        return ""; // Return an empty string or another default value if the node is null
+        return ""; // Retorna cadena vacía si el nodo es nulo
     }
 
-    public static ArrayList<solicitud> Cargar(String nombreXML, ArrayList<paciente> pacientesLista, ArrayList<medico> medicosLista, ArrayList<servicio> serviciosLista, ArrayList<estado> estadosLista) {
-        ArrayList<solicitud> solicitudLista = new ArrayList<>();
+public static ArrayList<solicitud> Cargar(String nombreXML, ArrayList<paciente> pacientesLista, ArrayList<medico> medicosLista, ArrayList<servicio> serviciosLista, ArrayList<estado> estadosLista) {
+    ArrayList<solicitud> solicitudLista = new ArrayList<>();
 
-        try {
-            File archivo = new File(nombreXML);
-            DocumentBuilderFactory industria = DocumentBuilderFactory.newInstance();
-            DocumentBuilder creador = industria.newDocumentBuilder();
-            Document docXML = creador.parse(archivo);
+    try {
+        File archivo = new File(nombreXML);
+
+        if (!archivo.exists() || archivo.length() == 0) {
+            System.out.println("El archivo XML no existe o está vacío: " + nombreXML);
+            return solicitudLista; // Retorna lista vacía si no existe el archivo
+        }
+
+        DocumentBuilderFactory industria = DocumentBuilderFactory.newInstance();
+        DocumentBuilder creador = industria.newDocumentBuilder();
+        Document docXML = creador.parse(archivo);
+
+        if (docXML.getDocumentElement() != null) {
             docXML.getDocumentElement().normalize();
-            NodeList nodos = docXML.getElementsByTagName("solicitud");
-            for (int i = 0; i < nodos.getLength(); i++) {
-                boolean funcional = true;
-                Node nodo = nodos.item(i);
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    Element elemento = (Element) nodo;
+        }
 
-                    String id = elemento.getAttribute("id");
-                    String fecha = getValue("fecha_hora", elemento);
-                    String nombreservicio = getValue("servicio", elemento);
-                    
-                    servicio servicio = null;
-                    for (int k = 0; k < serviciosLista.size(); k++) {
-                        if (serviciosLista.get(k).getNombre().equals(nombreservicio)) {
-                            servicio = serviciosLista.get(k);
-                            break;
+        NodeList nodos = docXML.getElementsByTagName("solicitud");
+
+        for (int i = 0; i < nodos.getLength(); i++) {
+            Node nodo = nodos.item(i);
+
+            if (nodo.getNodeType() != Node.ELEMENT_NODE) {
+                continue;
+            }
+
+            Element elemento = (Element) nodo;
+
+            String id = elemento.getAttribute("id");
+            String fechaStr = getValue("fecha_hora", elemento);
+            String idServicio = getValue("servicio", elemento);
+            String idPaciente = getValue("paciente", elemento);
+            String idMedico = getValue("medico", elemento);
+            String idEstado = getValue("estado", elemento); // Cargar el id del estado
+            String observaciones = getValue("observaciones", elemento);
+
+            servicio servicio = serviciosLista.stream().filter(s -> s.getId().equals(idServicio)).findFirst().orElse(null);
+            paciente paciente = pacientesLista.stream().filter(p -> p.getId().equals(idPaciente)).findFirst().orElse(null);
+            medico medico = medicosLista.stream().filter(m -> m.getId().equals(idMedico)).findFirst().orElse(null);
+
+            // Buscar el estado por ID; si no se encuentra, asignar "000" (Nuevo)
+            estado estado = estadosLista.stream().filter(e -> e.getId().equals(idEstado)).findFirst().orElse(null);
+            String estadoNombre = (estado != null) ? estado.getNombre() : "Nuevo"; // Nombre del estado
+            String estadoId = (estado != null) ? estado.getId() : "000"; // ID del estado
+
+            ArrayList<servicio> otrosServicios = new ArrayList<>();
+            NodeList serviciosXML = elemento.getElementsByTagName("otros_servicios");
+            if (serviciosXML.getLength() > 0) {
+                NodeList serviciosNodes = serviciosXML.item(0).getChildNodes();
+                for (int j = 0; j < serviciosNodes.getLength(); j++) {
+                    Node servicioNode = serviciosNodes.item(j);
+                    if (servicioNode.getNodeType() == Node.ELEMENT_NODE) {
+                        String servicioId = servicioNode.getTextContent().trim();
+                        servicio s = serviciosLista.stream().filter(serv -> serv.getId().equals(servicioId)).findFirst().orElse(null);
+                        if (s != null) {
+                            otrosServicios.add(s);
                         }
-                    }
-                    if (servicio == null) {
-                        //System.out.println("Falla el servicio");
-                        funcional = false;
-                    }
-
-                    String idpaciente = getValue("Paciente", elemento);
-                    paciente paciente = null;
-                    for (int k = 0; k < pacientesLista.size(); k++) {
-                        if (pacientesLista.get(k).getId().equals(idpaciente)) {
-                            paciente = pacientesLista.get(k);
-                            break;
-                        }
-                    }
-                    if (paciente == null) {
-                        //System.out.println("Falla el paciente");
-                        funcional = false;
-                    }
-
-                    String nombremedico = getValue("Medico", elemento);
-                    medico medico = null;
-                    for (int k = 0; k < medicosLista.size(); k++) {
-                        if (medicosLista.get(k).getNombre().equals(nombremedico)) {
-                            medico = medicosLista.get(k);
-                            break;
-                        }
-                    }
-                    if (medico == null) {
-                        //System.out.println("Falla el doctor");
-                        funcional = false;
-                    }
-
-                    String nombreestado = getValue("estado", elemento);
-                    String estado = null;
-                    for (int k = 0; k < estadosLista.size(); k++) {
-                        if (estadosLista.get(k).getNombre().equals(nombreestado)) {
-                            estado = nombreestado;
-                            break;
-                        }
-                    }
-                    if (estado == null) {
-                        //System.out.println("Falla el estado");
-                        funcional = false;
-                    }
-
-                    String observaciones = getValue("observaciones", elemento);
-                    ArrayList<servicio> otrosservicios = new ArrayList<>();
-                    NodeList serviciosXML = elemento.getElementsByTagName("otros_servicios").item(0).getChildNodes();
-                    for (int j = 0; j < serviciosXML.getLength(); j++) {
-                        Node servicioNode = serviciosXML.item(j);
-                        if (servicioNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element servicioElemento = (Element) servicioNode;
-                            String servicioId = servicioElemento.getTextContent();
-
-                            for (int k = 0; k < serviciosLista.size(); k++) {
-                                if (serviciosLista.get(k).getId().equals(servicioId)) {
-                                    otrosservicios.add(serviciosLista.get(k));
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    
-                    if (funcional) {
-                        solicitud solicitud1 = new solicitud(id, fecha, servicio, paciente, medico, estado, observaciones, otrosservicios);
-                        solicitudLista.add(solicitud1);
                     }
                 }
             }
-        } catch (IOException | SAXException ex) {
-            System.out.println("Error al leer el archivo XML o parsear los datos.");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+
+            solicitud solicitud1 = new solicitud(id, fechaStr, servicio, paciente, medico, estadoId, observaciones, otrosServicios);
+            solicitudLista.add(solicitud1);
         }
-        return solicitudLista;
+    } catch (IOException | SAXException ex) {
+        System.out.println("Error al leer el archivo XML o parsear los datos: " + ex.getMessage());
+    } catch (Exception ex) {
+        ex.printStackTrace();
     }
-    
-    public static void Guardar(String nombreXML, ArrayList<solicitud> solicitudes) {
-        try {
-            DocumentBuilderFactory industria = DocumentBuilderFactory.newInstance();
-            DocumentBuilder creador = industria.newDocumentBuilder();
-            Document docXML = creador.newDocument(); 
 
-            Element raiz = docXML.createElement("solicitudes");
-            docXML.appendChild(raiz);
+    return solicitudLista;
+}
 
-            for (solicitud sol : solicitudes) {
-                Element nuevaSolicitud = docXML.createElement("solicitud");
-                nuevaSolicitud.setAttribute("id", sol.consultarId());
 
-                Element fechaHora = docXML.createElement("fecha_hora");
-                fechaHora.appendChild(docXML.createTextNode(sol.consultarFecha_hora()));
-                nuevaSolicitud.appendChild(fechaHora);
 
-                Element servicio = docXML.createElement("servicio");
-                if (sol.consultarServicio() != null) {
-                    servicio.appendChild(docXML.createTextNode(sol.consultarServicio().getNombre()));
-                } else {
-                    // Añadir un nodo vacío si no hay servicio
-                    servicio.appendChild(docXML.createTextNode(""));
-                }
-                nuevaSolicitud.appendChild(servicio);
 
-                Element paciente = docXML.createElement("Paciente");
-                if (sol.consultarPaciente() != null) {
-                    paciente.appendChild(docXML.createTextNode(sol.consultarPaciente().getId()));
-                } else {
-                    paciente.appendChild(docXML.createTextNode(""));
-                }
-                nuevaSolicitud.appendChild(paciente);
+public static void Guardar(String nombreXML, ArrayList<solicitud> solicitudes) {
+    try {
+        DocumentBuilderFactory industria = DocumentBuilderFactory.newInstance();
+        DocumentBuilder creador = industria.newDocumentBuilder();
+        Document docXML = creador.newDocument();
 
-                Element medico = docXML.createElement("Medico");
-                if (sol.consultarMedico() != null) {
-                    medico.appendChild(docXML.createTextNode(sol.consultarMedico().getNombre()));
-                } else {
-                    medico.appendChild(docXML.createTextNode(""));
-                }
-                nuevaSolicitud.appendChild(medico);
+        Element raiz = docXML.createElement("solicitudes");
+        docXML.appendChild(raiz);
 
-                Element estado = docXML.createElement("estado");
-                if (sol.consultarEstado() != null) {
-                    estado.appendChild(docXML.createTextNode(sol.consultarEstado()));
-                } else {
-                    estado.appendChild(docXML.createTextNode(""));
-                }
-                nuevaSolicitud.appendChild(estado);
+        for (solicitud sol : solicitudes) {
+            Element nuevaSolicitud = docXML.createElement("solicitud");
+            nuevaSolicitud.setAttribute("id", sol.consultarId());
 
-                Element observaciones = docXML.createElement("observaciones");
-                if (sol.consultarObservaciones() != null && !sol.consultarObservaciones().isEmpty()) {
-                    observaciones.appendChild(docXML.createTextNode(sol.consultarObservaciones()));
-                } else {
-                    observaciones.appendChild(docXML.createTextNode(""));
-                }
-                nuevaSolicitud.appendChild(observaciones);
+            Element fechaHora = docXML.createElement("fecha_hora");
+            fechaHora.appendChild(docXML.createTextNode(sol.consultarFecha_hora().trim()));
+            nuevaSolicitud.appendChild(fechaHora);
 
-                Element listaOtrosServicios = docXML.createElement("otros_servicios");
-                if (sol.consultarOtrosservicios().isEmpty()) {
-                    Element servicioId = docXML.createElement("id");
-                    listaOtrosServicios.appendChild(servicioId); 
-                } else {
-                    for (servicio serv : sol.consultarOtrosservicios()) {
-                        Element servicioId = docXML.createElement("id");
-                        servicioId.appendChild(docXML.createTextNode(serv.getId()));
-                        listaOtrosServicios.appendChild(servicioId);
-                    }
-                }
-                nuevaSolicitud.appendChild(listaOtrosServicios);
-                raiz.appendChild(nuevaSolicitud);
+            Element servicio = docXML.createElement("servicio");
+            servicio.appendChild(docXML.createTextNode(sol.consultarServicio() != null ? sol.consultarServicio().getId().trim() : ""));
+            nuevaSolicitud.appendChild(servicio);
+
+            Element paciente = docXML.createElement("paciente");
+            paciente.appendChild(docXML.createTextNode(sol.consultarPaciente() != null ? sol.consultarPaciente().getId().trim() : ""));
+            nuevaSolicitud.appendChild(paciente);
+
+            Element medico = docXML.createElement("medico");
+            medico.appendChild(docXML.createTextNode(sol.consultarMedico() != null ? sol.consultarMedico().getId().trim() : ""));
+            nuevaSolicitud.appendChild(medico);
+
+            Element estado = docXML.createElement("estado");
+            // Almacenar el ID del estado en lugar del nombre
+            estado.appendChild(docXML.createTextNode(sol.consultarEstado() != null && !sol.consultarEstado().isEmpty() ? sol.consultarEstado().trim() : "000"));
+            nuevaSolicitud.appendChild(estado);
+
+            Element observaciones = docXML.createElement("observaciones");
+            observaciones.appendChild(docXML.createTextNode(sol.consultarObservaciones() != null ? sol.consultarObservaciones().trim() : ""));
+            nuevaSolicitud.appendChild(observaciones);
+
+            Element listaOtrosServicios = docXML.createElement("otros_servicios");
+            for (servicio serv : sol.consultarOtrosservicios()) {
+                Element servicioId = docXML.createElement("id");
+                servicioId.appendChild(docXML.createTextNode(serv.getId().trim()));
+                listaOtrosServicios.appendChild(servicioId);
             }
+            nuevaSolicitud.appendChild(listaOtrosServicios);
 
-            TransformerFactory industria2 = TransformerFactory.newInstance();
-            Transformer transformador = industria2.newTransformer();
-
-            transformador.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformador.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "7");
-            transformador.setOutputProperty(OutputKeys.STANDALONE, "no");
-
-            DOMSource fuente = new DOMSource(docXML);
-            StreamResult resultado = new StreamResult(new File(nombreXML));
-            transformador.transform(fuente, resultado);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            raiz.appendChild(nuevaSolicitud);
         }
+
+        TransformerFactory industria2 = TransformerFactory.newInstance();
+        Transformer transformador = industria2.newTransformer();
+
+        transformador.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformador.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+        DOMSource fuente = new DOMSource(docXML);
+        StreamResult resultado = new StreamResult(new File(nombreXML));
+        transformador.transform(fuente, resultado);
+
+        System.out.println("Archivo sobrescrito correctamente: " + nombreXML);
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
     }
+}
+
+
+
+
+
+
+
 }

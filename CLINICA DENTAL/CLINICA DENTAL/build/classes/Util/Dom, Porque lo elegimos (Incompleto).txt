@@ -1,1 +1,0 @@
-Utilizamos el parser DOM debido a su facilidad de implementar ... CONTINUAR LUEGO

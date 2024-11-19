@@ -30,6 +30,12 @@ import javax.swing.table.DefaultTableModel;
 public class VerSolicitudes extends javax.swing.JFrame {
     public VerSolicitudes() {
         initComponents();
+        SelectorInicio.setDateFormatString("yyyy-MM-dd");
+        SelectorFinal.setDateFormatString("yyyy-MM-dd");  // Formato para SelectorFinal   
+        
+       
+        
+
         setTitle("Ver Solicitudes");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
@@ -52,40 +58,58 @@ public class VerSolicitudes extends javax.swing.JFrame {
     }
 
     
-    private void llenartabla(){
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
-        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
-        ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
-        ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
-        ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
-        Vector<String> columnanombre = new Vector<String>();
-        columnanombre.addElement("ID");
-        columnanombre.addElement("NOMBRE");
-        columnanombre.addElement("FECHA");
-        columnanombre.addElement("MEDICO");
-        columnanombre.addElement("SERVICIO");
-        columnanombre.addElement("ESTADO");
-        Vector<Vector> rowData = new Vector<Vector>();
-        for (solicitud s : solicitudes){
-            Vector<String> row = new Vector<String>();
-            row.addElement(s.consultarId());
-            row.addElement(s.consultarPaciente().getNombre());
-            row.addElement(s.consultarFecha_hora());
-            row.addElement(s.consultarMedico().getNombre());
-            row.addElement(s.consultarServicio().getNombre());
-            row.addElement(s.consultarEstado());
-            rowData.addElement(row);
-        }
-        
-        DefaultTableModel m = new DefaultTableModel(rowData, columnanombre) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;  // Ninguna celda es editable
-            }
-        };
-        this.jTable1.setModel(m);
+private void llenartabla() {
+    ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+    ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
+    ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
+    ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
+    ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
+
+    Vector<String> columnanombre = new Vector<>();
+    columnanombre.addElement("ID");
+    columnanombre.addElement("PACIENTE");
+    columnanombre.addElement("FECHA");
+    columnanombre.addElement("MÉDICO");
+    columnanombre.addElement("SERVICIO");
+    columnanombre.addElement("ESTADO");
+
+    Vector<Vector<String>> rowData = new Vector<>();
+
+    for (solicitud s : solicitudes) {
+        Vector<String> row = new Vector<>();
+        row.addElement(s.consultarId());
+        row.addElement(s.consultarPaciente().getNombre());
+        row.addElement(s.consultarFecha_hora());
+        row.addElement(s.consultarMedico().getNombre());
+        row.addElement(s.consultarServicio().getNombre());
+
+        // Traducir el ID del estado al nombre del estado
+        String estadoNombre = estados.stream()
+                .filter(e -> e.getId().equals(s.consultarEstado()))
+                .map(estado::getNombre)
+                .findFirst()
+                .orElse("Desconocido"); // Manejo de casos donde no haya un estado correspondiente
+        row.addElement(estadoNombre);
+
+        rowData.addElement(row);
     }
-    
+
+    DefaultTableModel modelo = new DefaultTableModel(rowData, columnanombre) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Ninguna celda es editable
+        }
+    };
+    this.jTable1.setModel(modelo);
+}
+
+
+ 
+
+public void actualizarTabla() {
+    llenartabla();
+}
+
     
     
     /**
@@ -259,11 +283,12 @@ public class VerSolicitudes extends javax.swing.JFrame {
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(CajadeEstados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CajadeMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SelectorInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SelectorInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(CajadeMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -302,99 +327,110 @@ public class VerSolicitudes extends javax.swing.JFrame {
     }//GEN-LAST:event_CajadeEstadosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
-        ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
-        ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
-        ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
-        ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
-        String PacienteNombre = (String) CajadePacientes.getSelectedItem();
-        String DoctorNombre = (String) CajadeMedicos.getSelectedItem();
-        String ServicioNombre = (String) CajadeServicios.getSelectedItem();
-        String EstadoNombre = (String) CajadeEstados.getSelectedItem();
-        boolean ignorapaciente = false;
-        boolean ignoradoctor = false;
-        boolean ignoraservicio = false;
-        boolean ignoraestado = false;
-        boolean ignorafecha = false;
-        boolean fechainicioyfinal = false;
-        if (PacienteNombre.equals("No elegido")){
-            ignorapaciente = true;
-        }
-        if (DoctorNombre.equals("No elegido")){
-            ignoradoctor = true;
-        }
-        if (ServicioNombre.equals("No elegido")){
-            ignoraservicio = true;
-        }
-        if (EstadoNombre.equals("No elegido")){
-            ignoraestado = true;
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date Iniciofecha = SelectorInicio.getDate();
-        Date Finalfecha = SelectorFinal.getDate();
-        if (Iniciofecha == null && Finalfecha == null || Iniciofecha.equals("") && Finalfecha.equals("")){
-            ignorafecha = true;
-        }
-        else{
-            fechainicioyfinal = true;
-            String Iniciofechaformato = dateFormat.format(Iniciofecha);
-            String Finalfechaformato = dateFormat.format(Finalfecha);
-        }
-        if (fechainicioyfinal || ignorafecha){
-            Vector<String> columnanombre = new Vector<String>();
-            columnanombre.addElement("ID");
-            columnanombre.addElement("NOMBRE");
-            columnanombre.addElement("FECHA");
-            columnanombre.addElement("MEDICO");
-            columnanombre.addElement("SERVICIO");
-            columnanombre.addElement("ESTADO");
-            Vector<Vector> rowData = new Vector<Vector>();
-            for (solicitud s : solicitudes) {
-                boolean coincide = true;
-                if (!ignorapaciente && !s.consultarPaciente().getNombre().equals(PacienteNombre)) {
-                    coincide = false;
-                }
-                if (coincide && !ignoradoctor && !s.consultarMedico().getNombre().equals(DoctorNombre)) {
-                    coincide = false;
-                }
-                if (coincide && !ignoraservicio && !s.consultarServicio().getNombre().equals(ServicioNombre)) {
-                    coincide = false;
-                }
-                if (coincide && !ignoraestado && !s.consultarEstado().equals(EstadoNombre)) {
-                    coincide = false;
-                }
-                if (coincide && fechainicioyfinal) {
-                    try {
-                        Date solicitudFecha = dateFormat.parse(s.consultarFecha_hora());
-                        if (solicitudFecha.before(Iniciofecha) || solicitudFecha.after(Finalfecha)) {
-                            coincide = false;
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+    
+       ArrayList<paciente> pacientes = XML_PACIENTES.Cargar("src\\DATA\\pacientes.xml");
+    ArrayList<servicio> servicios = XML_SERVICIOS.Cargar("src\\DATA\\servicios.xml");
+    ArrayList<medico> medicos = XML_MEDICOS.Cargar("src\\DATA\\medicos.xml", servicios);
+    ArrayList<estado> estados = XML_ESTADOS.Cargar("src\\DATA\\estados.xml");
+    ArrayList<solicitud> solicitudes = XML_SOLICITUDES.Cargar("src\\DATA\\solicitudes.xml", pacientes, medicos, servicios, estados);
+
+    String PacienteNombre = (String) CajadePacientes.getSelectedItem();
+    String MedicoNombre = (String) CajadeMedicos.getSelectedItem();
+    String ServicioNombre = (String) CajadeServicios.getSelectedItem();
+    String EstadoNombre = (String) CajadeEstados.getSelectedItem();
+
+    // Determinar si se debe ignorar cada filtro
+    boolean ignorarPaciente = PacienteNombre.equals("No elegido");
+    boolean ignorarMedico = MedicoNombre.equals("No elegido");
+    boolean ignorarServicio = ServicioNombre.equals("No elegido");
+    boolean ignorarEstado = EstadoNombre.equals("No elegido");
+
+    // Convertir el nombre del estado al ID correspondiente
+    String estadoId = estados.stream()
+            .filter(e -> e.getNombre().equals(EstadoNombre))
+            .map(estado::getId)
+            .findFirst()
+            .orElse(null); // Si no encuentra, devolver null
+
+    Date fechaInicio = SelectorInicio.getDate();
+    Date fechaFinal = SelectorFinal.getDate();
+
+    boolean ignorarFecha = (fechaInicio == null && fechaFinal == null);
+    boolean fechasValidas = (fechaInicio != null && fechaFinal != null);
+
+    if (ignorarFecha || fechasValidas) {
+        // Formato de fecha esperado: `yyyy-MM-dd HH:mm`
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        Vector<String> columnas = new Vector<>();
+        columnas.add("ID");
+        columnas.add("PACIENTE");
+        columnas.add("FECHA");
+        columnas.add("MÉDICO");
+        columnas.add("SERVICIO");
+        columnas.add("ESTADO");
+
+        Vector<Vector<String>> filas = new Vector<>();
+
+        for (solicitud s : solicitudes) {
+            boolean coincide = true;
+
+            if (!ignorarPaciente && !s.consultarPaciente().getNombre().equals(PacienteNombre)) {
+                coincide = false;
+            }
+            if (coincide && !ignorarMedico && !s.consultarMedico().getNombre().equals(MedicoNombre)) {
+                coincide = false;
+            }
+            if (coincide && !ignorarServicio && !s.consultarServicio().getNombre().equals(ServicioNombre)) {
+                coincide = false;
+            }
+            if (coincide && !ignorarEstado && !s.consultarEstado().equals(estadoId)) {
+                coincide = false;
+            }
+            if (coincide && fechasValidas) {
+                try {
+                    Date fechaSolicitud = dateFormat.parse(s.consultarFecha_hora());
+                    if (fechaSolicitud.before(fechaInicio) || fechaSolicitud.after(fechaFinal)) {
+                        coincide = false;
                     }
-                }
-                if (coincide) {
-                    Vector<String> row = new Vector<String>();
-                    row.addElement(s.consultarId());
-                    row.addElement(s.consultarPaciente().getNombre());
-                    row.addElement(s.consultarFecha_hora());
-                    row.addElement(s.consultarMedico().getNombre());
-                    row.addElement(s.consultarServicio().getNombre());
-                    row.addElement(s.consultarEstado());
-                    rowData.addElement(row);
+                } catch (ParseException e) {
+                    System.out.println("Error al parsear la fecha de la solicitud: " + s.consultarFecha_hora());
+                    e.printStackTrace();
+                    coincide = false;
                 }
             }
-            DefaultTableModel m = new DefaultTableModel(rowData, columnanombre) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return false;  // Ninguna celda es editable
-                }
-            };
-            this.jTable1.setModel(m);
+            if (coincide) {
+                Vector<String> fila = new Vector<>();
+                fila.add(s.consultarId());
+                fila.add(s.consultarPaciente().getNombre());
+                fila.add(s.consultarFecha_hora()); // Fecha en formato `yyyy-MM-dd HH:mm`
+                fila.add(s.consultarMedico().getNombre());
+                fila.add(s.consultarServicio().getNombre());
+
+                // Traducir ID del estado a nombre del estado para mostrarlo en la tabla
+                String estadoNombre = estados.stream()
+                        .filter(e -> e.getId().equals(s.consultarEstado()))
+                        .map(estado::getNombre)
+                        .findFirst()
+                        .orElse("Desconocido");
+                fila.add(estadoNombre);
+                filas.add(fila);
+            }
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Debes elegir ambas fechas o ninguna.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+
+        DefaultTableModel modelo = new DefaultTableModel(filas, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Ninguna celda es editable
+            }
+        };
+        this.jTable1.setModel(modelo);
+    } else {
+        JOptionPane.showMessageDialog(this, "Debes elegir ambas fechas o ninguna.", "Error", JOptionPane.ERROR_MESSAGE);
+    }                          
+   
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
